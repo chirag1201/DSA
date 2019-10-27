@@ -56,7 +56,10 @@ int main(){
 		case 7:
 			start=deletenode(start);
 			
-			break;	
+			break;
+		default:
+			printf("invalid input");
+			break;
 		
 	}
 	
