@@ -1,0 +1,208 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+	int data;
+	struct node *next;
+};
+
+struct node *start=NULL;
+struct node *create(struct node*);
+struct node *display(struct node*);
+struct node *nodeatend(struct node*);
+struct node *nodeatbegin(struct node*);
+struct node *beforegivennode(struct node*);
+struct node *aftergivennode(struct node*);
+struct node *deletenode(struct node*);
+
+int main(){
+	int option=0;
+	while(option!=8){
+	printf("1:create a linked list\n");
+	printf("2:display linked list\n");
+	printf("3:add node at the end\n");
+	printf("4:add node at the begining\n");
+	printf("5:add node before a given node\n");
+	printf("6:add node after a given node\n");
+	printf("7:delete a given node\n");
+	printf("8:exit\n\n");
+	scanf("%d",&option);
+	
+	switch(option){
+		case 1:
+			start=create(start);
+			printf("\nLINKED LIST CREATED\n\n");
+			break;
+		case 2:
+			start=display(start);
+			printf("\nLINKED LIST DISPLAY\n\n");
+			break;
+		case 3:
+			start=nodeatend(start);
+		
+			break;
+		case 4:
+			start=nodeatbegin(start);
+				
+			break;
+		case 5:
+			start=beforegivennode(start);
+			
+			break;
+		case 6:
+			start=aftergivennode(start);
+				
+			break;
+		case 7:
+			start=deletenode(start);
+			
+			break;	
+		
+	}
+	
+}
+}
+
+struct node *create(struct node *start){
+	
+	struct node *newnode,*ptr;
+	int num;
+	printf("enter data: ");
+	scanf("%d",&num);
+	while(num!=-1){
+		newnode=(struct node*)malloc(sizeof(struct node));
+		newnode->data=num;
+		if(start==NULL){
+			newnode->next=NULL;
+			start=newnode;
+		}
+		else{
+			ptr=start;
+			while(ptr->next!=NULL){
+				ptr=ptr->next;
+			}
+			ptr->next=newnode;
+			newnode->next=NULL;
+		}
+		printf("enter data: ");
+		scanf("%d",&num);
+	}
+	return start;
+}
+	struct node *display(struct node *start) 
+	{
+	struct node *ptr;
+	ptr = start;
+	printf("\n");
+	while(ptr != NULL) 
+	{ 
+	printf("%d\n", ptr -> data); 
+	ptr = ptr -> next;
+	}
+	return start;
+}
+	struct node *nodeatend(struct node *start){
+		if(start==NULL){
+			printf("LINKED LIST NOT CREATED YET\n");
+		}
+		else{
+		
+		struct node *newnode,*ptr;
+		newnode=(struct node*)malloc(sizeof(struct node));		
+		printf("enter data in new node :");
+		scanf("%d",&newnode->data);
+		
+		ptr=start;
+		while(ptr->next!=NULL){
+			ptr=ptr->next;
+		}
+		ptr->next=newnode;
+		newnode->next=NULL;
+			printf("\nNODE ADDED AT THE LAST\n\n");
+		return start;
+	}
+	}
+		struct node *nodeatbegin(struct node *start){
+		if(start==NULL){
+			printf("LINKED LIST NOT CREATED YET\n");
+		}
+		else{
+		
+		struct node *ptr,*newnode;
+		newnode=(struct node*)malloc(sizeof(struct node));
+		printf("enter data to add at begining :");
+		scanf("%d",&newnode->data);
+		ptr=start;
+		start=newnode;
+		newnode->next=ptr;
+		printf("\nNODE ADDED AT THE BEGINING\n\n");
+		return start;
+	}
+}
+struct node *beforegivennode(struct node *start){
+	if(start==NULL){
+		printf("LINKED LIST NOT CREATED YET\n");
+	}
+	else{
+	struct node *newnode,*preptr,*ptr;
+	int num;
+	newnode=(struct node*)malloc(sizeof(struct node));
+	printf("enter data of newnode data and data of node before which newnode is to be inserted :");
+	scanf("%d%d",&newnode->data,&num);
+	ptr=start;
+	while(ptr->data!=num){
+		preptr=ptr;
+		ptr=ptr->next;
+	}
+	preptr->next=newnode;
+	newnode->next=ptr;
+		printf("\nNODE ADDED BEFORE THE GIVEN NODE\n\n");
+	return start;
+}
+}
+
+struct node *aftergivennode(struct node *start){
+	if(start==NULL){
+		printf("LINKED LIST NOT CREATED YET\n");
+	}
+	else{
+	
+	struct node *newnode,*preptr,*ptr;
+	int num;
+	newnode=(struct node*)malloc(sizeof(struct node));
+	printf("enter data of newnode data and data of node after which newnode is to be inserted :");
+	scanf("%d%d",&newnode->data,&num);
+	ptr=start;
+	preptr=ptr;
+	while(preptr->data!=num){
+		preptr=ptr;
+		ptr=ptr->next;
+	}
+	preptr->next=newnode;
+	newnode->next=ptr;
+	printf("\nNODE ADDED AFTER THE GIVEN NODE\n\n");
+	return start;
+}
+}
+
+struct node *deletenode(struct node *start){
+	if(start==NULL){
+		printf("LINKED LIST NOT CREATED YET\n");
+	}
+	else{
+	
+	struct node *ptr,*preptr;
+	int num;
+	printf("enter node data that is to be deleted");
+	scanf("%d",&num);
+	ptr=start;
+	preptr=ptr;
+	while(ptr->data!=num){
+		preptr=ptr;
+		ptr=ptr->next;
+	}
+	preptr->next=ptr->next;
+		printf("\nNODE IS DELETED\n\n");
+	return start;
+}
+}
