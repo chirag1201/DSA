@@ -1,0 +1,123 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+	int data;
+	struct node* next;
+};
+struct node *start=NULL;
+struct node *push(struct node*);
+struct node *pop(struct node*);
+struct node *peek(struct node*);
+struct node *display(struct node*);
+
+int main(){
+	int option =0;
+	while(option !=5){
+		printf("\n1 Enter 1 to push");
+		printf("\n2 Enter 2 to pop");
+		printf("\n3 Enter 3 to peek");
+		printf("\n4 Enter 4 to display stack");
+		printf("\n5 Enter 5 to exit\n");
+		
+		scanf("%d",&option);
+		switch(option){
+			case 1:
+				start=push(start);
+				printf("\nelement pushed\n");
+				break;
+			case 2:
+				start=pop(start);
+				printf("\nelement poped\n" );
+				break;
+			case 3:
+				start=peek(start);
+				printf("\n");
+				break;
+			case 4:
+				start=display(start);
+				printf("\ndisplayed\n");
+				break;
+			default:
+				printf("\nInvalid input\n");
+				break;
+		}
+	}
+}
+struct node* push(struct node* start){
+	struct node *newnode , *ptr;
+	newnode=(struct node*)malloc(sizeof(struct node));
+	
+	printf("enter data : ");
+	scanf("%d",&newnode->data);
+	if(start==NULL){
+		newnode->next=NULL;
+		start=newnode;
+		return newnode;
+	}
+
+	
+//	ptr=start;
+//	while(ptr->next!=NULL){
+//		ptr=ptr->next;
+//	}
+//	ptr->next=newnode;
+//	newnode->next=NULL;
+//    return start;
+    
+    newnode->next=start;
+    start=newnode;
+    return start;
+}
+struct node* display(struct node* start){
+	if(start==NULL){
+		printf("empty stack");
+		return start;
+	}
+	struct node *ptr;
+	ptr=start;
+	
+	printf("\n Stack  is : ");
+
+	while(ptr!=NULL){
+	
+		printf("%d  ",ptr->data);
+		ptr=ptr->next;
+	}
+	return start;
+}
+struct node *pop(struct node* start){
+	if(start == NULL){
+		printf("empty stack");
+		return start;
+	}
+//	struct node *ptr,*preptr;
+//	ptr=start;
+//	while(ptr->next!=NULL){
+//		preptr=ptr;
+//		ptr=ptr->next;
+//	}
+//	preptr->next=NULL;
+//	return start;
+	struct node *ptr;
+	ptr=start;
+	start=start->next;
+	ptr->next=NULL;
+	return start;
+}
+struct node *peek(struct node *start){
+	if(start == NULL){
+		printf("empty stack");
+		return start;
+	}
+//	struct node* ptr;
+//	ptr=start;
+//	while(ptr->next!=NULL){
+//		ptr=ptr->next;
+//	}
+//	printf("element at the top is : %d ",ptr->data);
+//	return start;
+
+	printf("element at the top is : %d ",start->data);
+	return start;
+}

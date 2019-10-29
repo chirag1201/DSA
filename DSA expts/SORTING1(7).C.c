@@ -1,0 +1,158 @@
+#include <stdio.h>
+#include <conio.h>
+#define size 10
+int largest(int arr[], int n);
+void radix_sort(int arr[], int n);
+int shell_sort(int arr[],int n);
+void insertion_sort(int arr[],int n);
+void main(){
+int arr[size], i, n,choice;
+clrscr();
+printf("\n Enter the number of elements in the array: ");
+scanf("%d", &n);
+printf("\n Enter the elements of the array: ");
+for(i=0;i<n;i++)
+{
+ scanf("%d", &arr[i]);
+}
+
+printf("\n###MENU###");
+printf("\n1.RADIX");
+printf("\n2.INSERTION");
+printf("\n3.SHELL");
+printf("\nEnter 4 to exit ");
+do
+{
+printf("\nEnter your choice:");
+scanf("%d",&choice);
+switch(choice)
+{
+case 1:
+radix_sort(arr, n);
+printf(" The sorted array using radix sort: \n");
+for(i=0;i<n;i++)
+printf(" %d\t", arr[i]);
+break;
+case 2:
+insertion_sort(arr, n);
+printf(" The sorted array using insertion sort: \n");
+for(i=0;i<n;i++)
+printf(" %d\t", arr[i]);
+break;
+case 3:
+shell_sort(arr,n);
+printf("\n The sorted array using shell sort: \n");
+for(i=0;i<n;i++)
+printf(" %d\t", arr[i]);
+break;
+}
+}while(choice!=4);
+getch();
+}
+int largest(int arr[], int n)
+{
+int large=arr[0], i;
+for(i=1;i<n;i++)
+{
+ if(arr[i]>large)
+ large = arr[i];
+}
+return large;
+}
+void radix_sort(int arr[], int n)
+{
+int bucket[size][size], bucket_count[size];
+int i, j, k, remainder, NOP=0, divisor=1, large, pass;
+large = largest(arr, n);
+while(large>0)
+{
+NOP++;
+large/=size;
+}
+for(pass=0;pass<NOP;pass++) // Initialize the buckets
+{
+for(i=0;i<size;i++)
+bucket_count[i]=0;
+for(i=0;i<n;i++)
+ {
+ // sort the numbers according to the digit at passth place
+remainder = (arr[i]/divisor)%size;
+ bucket[remainder][bucket_count[remainder]] = arr[i];
+bucket_count[remainder] += 1;
+ }
+ // collect the numbers after PASS pass
+i=0;
+for(k=0;k<size;k++)
+ {
+for(j=0;j<bucket_count[k];j++)
+ {
+ arr[i] = bucket[k][j];
+i++;
+ }
+ }
+divisor *= size;
+}
+}
+
+
+int shell_sort(int arr[],int n)
+{
+	int gap_size,i,flag=1,temp;
+	gap_size=n;
+	 while(flag == 1 || gap_size > 1)
+{
+		 flag = 0;
+		 gap_size = (gap_size + 1) / 2;
+		 for(i=0; i< (n - gap_size); i++)
+ {
+			 if( arr[i+gap_size] < arr[i])
+ {
+				 temp = arr[i+gap_size];
+				 arr[i+gap_size] = arr[i];
+				 arr[i] = temp;
+				 flag = 0;
+ }
+ }
+}
+}
+void insertion_sort(int arr[], int n)
+{
+int i, j, temp;
+for(i=1;i<n;i++)
+{
+ temp = arr[i];
+ j = i-1;
+ while((temp < arr[j]) && (j>=0))
+ {
+ arr[j+1] = arr[j];
+j--;
+ }
+ arr[j+1] = temp;
+}
+}
+/* ***********OUTPUT***********
+
+ Enter the number of elements in the array: 3
+
+ Enter the elements of the array: 12
+32
+13
+
+###MENU###
+1.RADIX
+2.INSERTION
+3.SHELL
+Enter 4 to exit
+Enter your choice:1
+ The sorted array using radix sort:
+ 12      13      32
+Enter your choice:2
+ The sorted array using insertion sort:
+ 12      13      32
+Enter your choice:3
+ The sorted array using shell sort:
+ 12      13      32
+Enter your choice:4
+*/
+
+

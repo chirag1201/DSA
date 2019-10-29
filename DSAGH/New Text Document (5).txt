@@ -1,0 +1,139 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+	int data;
+	struct node *next;
+};
+
+struct node *front=NULL;
+struct node *rear=NULL;
+struct node *start=NULL;
+struct node *enqueue(struct node *start);
+struct node *dequeue(struct node *start);
+struct node *display(struct node *start);
+void frontelement();
+void isempty();
+
+int main(){
+	int option=0;
+	while(option!=6){
+		printf("\n1 Enter 1 to enqueue");
+		printf("\n2 Enter 2 to dequeue");
+		printf("\n3 Enter 3 to display queue");
+		printf("\n4 Enter 4 to display element at front");
+		printf("\n5 Enter 5 to check if queue is empty or not");
+		printf("\n6 Enter 6 to exit\n");		
+		scanf("%d",&option);
+		switch(option){
+			case 1:
+				start=enqueue(start);
+				printf("\n Element added\n");
+				break;
+			case 2:
+			
+				start=dequeue(start);
+		
+				break;
+			case 3:
+				start=display(start);
+		
+				break;
+			case 4:
+				frontelement();
+				break;
+			case 5:
+				isempty();
+				break;
+			default :
+				printf("\n invalid input\n");
+				break;
+			
+		}
+	}
+	return;
+}
+
+struct node *enqueue(struct node *start){
+	int num;
+	printf("\nEnter element to be added : ");
+	scanf("%d",&num);
+	struct node *newnode;
+	newnode=(struct node*)malloc(sizeof(struct node));
+	newnode->data=num;
+	if(start==NULL){
+		front=newnode;
+		rear=newnode;
+		front->next=rear;
+	}
+	else{
+	rear->next=newnode;
+	rear=rear->next;
+	newnode->next=front;
+	}
+	
+	return front;
+}
+struct node *display(struct node *start){
+	if(start==NULL){
+		printf("\nqueue not created\n");
+		return start;
+	}
+	printf("\n Queue is : ");
+	if(rear==front){
+		printf("%d ",front->data);
+		printf("\n Displayed \n");
+		return start;
+	}
+	struct node *ptr;
+	ptr=front;
+	printf("%d ",ptr->data);
+	ptr=ptr->next;
+	while(ptr!=front){
+		printf("%d ",ptr->data);
+		ptr=ptr->next;
+	}
+	printf("\n Displayed \n");
+	return front;
+}
+struct node *dequeue(struct node *start){
+	if(start==NULL){
+		printf("\nqueue in not created\n");
+		return start;
+	}
+	if(front == rear){
+		front=NULL;
+		rear=NULL;
+		printf("\n Element removed\n");
+		printf("\n queue became empty\n");
+		return NULL;
+	}
+	struct node *temp;
+	temp=front;
+	front=front->next;
+	rear->next=front;
+	temp=NULL;
+	printf("\n Element removed\n");
+	return front;
+
+}
+void isempty(){
+	if(front==NULL){
+		printf("\n Queue is empty\n");
+		return;
+	}
+	else{
+		printf("\n Queue is not empty\n");
+		return;
+	}
+}
+void frontelement(){
+	if(front==NULL){
+		printf("\nQueue is empty\n");
+		return;
+	}
+	else{
+		printf("\nFront element is : %d\n",front->data);
+		return;
+	}
+}

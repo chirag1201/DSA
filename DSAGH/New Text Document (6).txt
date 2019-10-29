@@ -1,0 +1,137 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+	int data;
+	int priority;
+	struct node *next;
+};
+
+struct node *front=NULL;
+struct node *rear=NULL;
+struct node *start=NULL;
+void enqueue();
+void dequeue();
+void display();
+void frontelement();
+void isempty();
+
+int main(){
+	int option=0;
+	while(option!=6){
+		printf("\n1 Enter 1 to add element");
+		printf("\n2 Enter 2 to remove element");
+		printf("\n3 Enter 3 to display priority queue");
+		printf("\n4 Enter 4 to display element at front");
+		printf("\n5 Enter 5 to check if queue is empty or not");
+		printf("\n6 Enter 6 to exit\n");
+		scanf("%d",&option);
+		
+		switch(option){
+			case 1:
+				enqueue();
+				break;
+			case 2:
+				dequeue();
+				break;
+			case 3:
+				display();
+				break;
+			case 4:
+				frontelement();
+				break;
+			case 5:
+				isempty();
+				break;
+			default :
+				printf("\nInvalid Input\n");
+				break;
+		}
+		
+	}
+	return;
+}
+
+void enqueue(){
+	struct node *newnode;
+	newnode=(struct node*)malloc(sizeof(struct node));
+	printf("\n Enter data : ");
+	scanf("%d",&newnode->data);
+	printf("\n Enter its priority : ");
+	scanf("%d",&newnode->priority);
+	if(start==NULL){
+		newnode->next=NULL;
+		start=newnode;
+		front=newnode;
+		rear=newnode;
+		printf("\nElement added\n");
+		return;
+	}
+	if(newnode->priority<front->priority){
+		newnode->next=front;
+		front=newnode;
+		printf("\nElement added\n");
+		return;
+	}
+	else{
+		struct node *ptr,*preptr;
+		ptr=front;
+		
+		while(ptr!=NULL && newnode->priority>=ptr->priority){
+			preptr=ptr;
+			ptr=ptr->next;
+		}
+		preptr->next=newnode;
+		newnode->next=ptr;
+		printf("\nElement added\n");
+		return;
+	}
+}
+void dequeue(){
+	if(front==NULL){
+		printf("\n Queue is Empty\n");
+		return;
+	}
+	struct node *ptr;
+	ptr=front;
+	front=front->next;
+	ptr->next=NULL;
+	printf("\n Element removed is : %d\n",ptr->data);
+	return;
+}
+void display(){
+	if(start==NULL){
+		printf("\n Queue is Empty");
+		return;
+	}
+	struct node *ptr;
+	ptr=front;
+	printf("\nQueue is : ");
+	while(ptr!=NULL){
+		printf("%d ",ptr->data);
+		ptr=ptr->next;
+	}
+	printf("\nQueue displayed\n");
+	return;
+	
+}
+void isempty(){
+	if(front==NULL){
+		printf("\n Queue is empty\n");
+		return;
+	}
+	else{
+		printf("\n Queue is not empty\n");
+		return;
+	}
+}
+void frontelement(){
+	if(front==NULL){
+		printf("\nQueue is empty\n");
+		return;
+	}
+	else{
+		printf("\nFront element is : %d\n",front->data);
+		return;
+	}
+}

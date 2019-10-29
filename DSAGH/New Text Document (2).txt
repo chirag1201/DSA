@@ -1,0 +1,288 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+	int data;
+	struct node *next;
+};
+struct node *start1=NULL;
+struct node *start2=NULL;
+struct node *start=NULL;
+struct node *createLL1(struct node *start1);
+struct node *createLL2(struct node *start2);
+struct node *concatinate(struct node *start1,struct node *start2);
+struct node *splitLL1(struct node *start1);
+struct node *reverseLL1(struct node *start1);
+struct node *copyLL1(struct node *start1);
+struct node *countnodeLL1(struct node *start1);
+struct node *displayLL1(struct node *start1);
+struct node *displayLL2(struct node *start2);
+
+
+
+int main(){
+	int option=0;
+	while(option!=10){
+		printf("\n1 Enter 1 to create LL1");
+		printf("\n2 Enter 2 to create LL2");
+		printf("\n3 Enter 3 to concatinate LL1 & LL2");
+		printf("\n4 Enter 4 to split LL1");
+		printf("\n5 Enter 5 to reverse LL1");
+		printf("\n6 Enter 6 to copy LL1");
+		printf("\n7 Enter 7 to countnodeLL1");
+		printf("\n8 Enter 8 to display LL1");
+		printf("\n9 Enter 9 to display LL2");
+		printf("\n10 Enter 10 to exit\n ");
+		
+		scanf("%d",&option);
+		switch(option){
+			case 1:
+				start1=createLL1(start1);
+				printf("\nLL1 created\n");
+				break;
+			case 2:
+				start2=createLL2(start2);
+				printf("\nLL2 created\n");
+				break;
+			case 3:
+				start=concatinate(start1,start2);
+				printf("\nLL1 and LL2 concatinated\n");
+				break;
+			case 4:
+				start1=splitLL1(start1);
+				printf("\nLL1 splited");
+				break;
+			case 5:
+				start1=reverseLL1(start1);
+				printf("\nLL1 reversed");
+				break;
+			case 6:
+				start1=copyLL1(start1);
+				printf("\nLL!copied");
+				break;
+			case 7:
+				start1=countnodeLL1(start1);
+				break;
+			case 8:
+				start1=displayLL1(start1);
+				printf("\nLL1 displayed\n");
+				break;
+			case 9:
+				start2=displayLL2(start2);
+				printf("\nLL2 displayed\n");
+				break;
+			default:
+				printf("invalid input");
+				break;
+				
+			
+		}		
+	}
+	return;
+}
+struct node *createLL1(struct node *start1){
+	struct node *ptr,*newnode;
+	int num=0;
+	printf("\nEnter data : ");
+	scanf("%d",&num);
+	while(num!=-1){
+		newnode=(struct node*)malloc(sizeof(struct node));
+		newnode->data=num;
+		if(start1==NULL){
+			newnode->next=NULL;
+			start1=newnode;
+		}
+		else{
+			ptr=start1;
+			while(ptr->next!=NULL)
+			ptr=ptr->next;
+			ptr->next=newnode;
+			newnode->next=NULL;
+		
+		}
+			printf("\nEnter data : ");
+			scanf("%d",&num);
+	
+}
+return start1;
+}
+
+struct node *createLL2(struct node *start2){
+	struct node *ptr,*newnode;
+	int num=0;
+	printf("\nEnter data : ");
+	scanf("%d",&num);
+	while(num!=-1){
+		newnode=(struct node*)malloc(sizeof(struct node));
+		newnode->data=num;
+		if(start2==NULL){
+			newnode->next=NULL;
+			start2=newnode;
+		}
+		else{
+			ptr=start2;
+			while(ptr->next!=NULL)
+			ptr=ptr->next;
+			ptr->next=newnode;
+			newnode->next=NULL;
+		
+		}
+			printf("\nEnter data : ");
+			scanf("%d",&num);
+	
+}
+return start2;
+}
+
+struct node *displayLL1(struct node *start1){
+	if(start1==NULL){
+		printf("\nLL1 not created");
+		return start1;
+	}
+	struct node *ptr;
+	ptr=start1;
+	while(ptr!=NULL){
+		printf("%d ",ptr->data);
+		ptr=ptr->next;
+	}
+	return start1;
+}
+
+
+struct node *displayLL2(struct node *start2){
+	if(start2==NULL){
+		printf("\nLL2 not created");
+		return start2;
+	}
+	struct node *ptr;
+	ptr=start2;
+	while(ptr!=NULL){
+		printf("%d ",ptr->data);
+		ptr=ptr->next;
+	}
+	return start2;
+}
+
+struct node *concatinate(struct node *start1,struct node *start2 ){
+	if(start1==NULL){
+		printf("\nLL1 not created\n");
+		return NULL;
+	}
+	if(start2==NULL){
+		printf("\nLL2 not created\n");
+		return NULL;
+	}
+	struct node *ptr;
+	ptr=start1;
+	while(ptr->next!=NULL)
+	ptr=ptr->next;
+	ptr->next=start2;
+	
+	printf("\nConcatinated LL is :");
+	ptr=start1;
+	while(ptr!=NULL){
+		printf("%d ",ptr->data);
+		ptr=ptr->next;
+	}
+	return NULL;
+}
+struct node *splitLL1(struct node *start1){
+	if(start1==NULL){
+		printf("\n LL1 not created");
+		return NULL;
+	}
+	int nu;
+	struct node *ptr;
+	printf("\n Enter data from where LL1 is to be splited : ");
+	scanf("%d",&nu);
+
+	ptr=start1;
+	while( ptr!=NULL && ptr->data!=nu){
+		ptr=ptr->next;
+		
+	}
+	if(ptr==NULL){
+		printf("Invalid data");
+		return start1;
+	}
+	printf("out");
+	struct node *ptr2;
+	ptr2=ptr->next;
+	ptr->next=NULL;
+	printf("\nThe splited LL1 is : ");
+	ptr=start1;
+	while(ptr!=NULL){
+		printf("%d ",ptr->data);
+		ptr=ptr->next;
+	}
+	printf(" & ");
+	while(ptr2!=NULL){
+		printf("%d ",ptr2->data);
+		ptr2=ptr2->next;
+	}
+	return start1;
+}
+struct node *countnodeLL1(struct node *start1){
+	if(start1==NULL){
+		printf("/n LL1 not created");
+		return start1;
+	}
+	struct node *ptr;
+	int count=0;
+	ptr=start1;
+	while(ptr!=NULL){
+		ptr=ptr->next;
+		count++;
+	}
+	printf("\nNumber of nodes in LL1 : %d",count);
+	return start1;
+}
+struct node *reverseLL1(struct node *start1){
+	if(start1==NULL){
+		printf("\nLL1 not created\n");
+		return start1;
+	}
+	if(start1->next==NULL){
+		return start1;
+	}
+	struct node *finstart=reverseLL1(start1->next);
+	struct node *ptr;
+	ptr=finstart;
+	while(ptr->next!=NULL){
+		ptr=ptr->next;
+	}
+	ptr->next=start1;
+	start1->next=NULL;
+	return finstart;
+}
+
+struct node *copyLL1(struct node *start1){
+	if(start1==NULL){
+		printf("\n LL1 not created");
+		return NULL;
+	}
+		struct node *ptr,*ptr2,*newnode;
+		ptr=start1;
+		newnode=(struct node*)malloc(sizeof(struct node));
+		newnode->data=ptr->data;
+		newnode->next=NULL;
+		ptr2=newnode;
+		start=newnode;
+		ptr=ptr->next;
+		
+		while(ptr!=NULL){
+			newnode=(struct node*)malloc(sizeof(struct node));
+			newnode->data=ptr->data;
+			newnode->next=NULL;
+			ptr2->next=newnode;
+			ptr2=ptr2->next;
+			ptr=ptr->next;
+			
+		}
+		ptr2=start;
+		printf("\n copied LL1 is : ");
+		while(ptr2!=NULL){
+			printf("%d ",ptr2->data);
+			ptr2=ptr2->next;
+		}
+		return start1;
+}
